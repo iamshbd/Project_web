@@ -2,87 +2,102 @@ import Result from "../models/resultModels.js";
 
 export async function createResult(req, res) {
     try {
-        if(!req.user || !req.user.id){
+        if (!req.user || !req.user.id) {
             return res.status(401).json({
                 success: false,
-                message: 'Not authorized'
-            })
-        }
-        const  { title, technology, level, totalQuestions, correct, wrong} = req.body;
-        if(!technology || !level || totalQuestions === undefined || correct === undefined){
-            return res.status(400).json({
-                success: false,
-                message: 'Missing fields'
+                message: "Not authorized"
             });
         }
 
-        // compute wrong if not provided
-        const computedWrong = wrong !== undefined ? Number(wrong) : Math.max(0, Number(totalQuestions)- Number(correct));
+        const { technology, subject, level, totalQuestions, correct } = req.body;
 
-        if(!title){
+        // 🔥 validation
+        if (!technology || !subject || !level) {
             return res.status(400).json({
                 success: false,
-                message: 'Missing Title'
+                message: "Missing required fields"
+            });
+        }
+
+        if (totalQuestions === undefined || correct === undefined) {
+            return res.status(400).json({
+                success: false,
+                message: "Missing score data"
+            });
+        }
+
+        const total = Number(totalQuestions);
+        const correctAns = Number(correct);
+
+        if (correctAns > total) {
+            return res.status(400).json({
+                success: false,
+                message: "Correct answers cannot exceed total questions"
             });
         }
 
         const payload = {
-            title: String(title).trim(), 
             technology,
+            subject,
             level,
-            totalQuestions: Number(totalQuestions),
-            correct: Number(correct),
-            wrong: computedWrong,
-            user: req.user.id  // for a particular user
+            totalQuestions: total,
+            correct: correctAns,
+            user: req.user.id
         };
 
         const created = await Result.create(payload);
+
         return res.status(201).json({
             success: true,
-            message: 'Result Created',
+            message: "Result Created",
             result: created
-        })
-    }
+        });
 
-    catch(err){
-        console.error('CreateResult Error:', err);
+    } catch (err) {
+        console.error("CreateResult Error:", err);
         return res.status(500).json({
             success: false,
-            message: 'Server Error'
-        })
+            message: "Server Error"
+        });
     }
-    
 }
-
 //list the result   
 
 export async function listResults(req, res) {
-    try{
-        if(!req.user || !req.user.id){
+    try {
+        if (!req.user || !req.user.id) {
             return res.status(401).json({
                 success: false,
-                message: 'Not authorized'
-            })
+                message: "Not authorized"
+            });
         }
-        const { technology} = req.query;
+
+        const { technology, subject } = req.query;
 
         const query = { user: req.user.id };
-        if(technology && technology.toLowerCase() !== 'all'){
+
+        if (technology && technology !== "all") {
             query.technology = technology;
         }
 
-        const items = (await Result.find(query)).sort({ createdAt: -1 }).lean();
+        if (subject && subject !== "all") {
+            query.subject = subject;
+        }
+
+        const items = await Result.find(query)
+            .sort({ createdAt: -1 })
+            .lean();
+
         return res.json({
             success: true,
             results: items
-        })
-    }
+        });
 
-    catch(err){
-        console.error('ListResults Error:', err);
+    } catch (err) {
+        console.error("ListResults Error:", err);
         return res.status(500).json({
             success: false,
-            message: 'Server Error'
-        })
+            message: "Server Error"
+        });
     }
 }

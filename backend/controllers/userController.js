@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 const TOKEN_EXPIRES_IN = '24h';
 const JWT_SECRET = 'your_jwt_secret_here';
 
+
 //rigister
 export async function register(req, res) {
     try{
@@ -15,7 +16,7 @@ export async function register(req, res) {
 
         if(!name || !email || !password){
             return res.status(400).json({
-                success: true,
+                success: false,
                 message: 'All fields are required.'
             })
         }

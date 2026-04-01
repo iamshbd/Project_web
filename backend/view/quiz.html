@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuessME | Tech Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/quizStyle.css">
+
+    <script src="./js/quizData.js" defer></script>
+    <script src="./js/quizApp.js" defer></script>
+</head>
+<body class="dark-theme">
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-left">
+            <button class="btn btn-secondary" onclick="window.location.href='results.html'">
+                <i class="fa-solid fa-chart-simple"></i> My Result
+            </button>
+            <button class="btn btn-outline-danger" onclick="handleLogout()">Logout</button>
+        </div>
+        <div class="nav-right">
+            <button class="btn btn-back" onclick="window.location.href='course.html'">⬅ Back</button>
+        </div>
+    </div>
+</nav>
+
+<div class="app-container">
+    <aside class="sidebar">
+        <div class="brand">
+            <h1 class="logo">BORN TO CAPTURE</h1>
+            <h1 class="logo">TRAIN TO HACK.</h1>
+            <h1 class="logo logo-highlight">GUESS ME</h1>
+        </div>
+
+        <div class="sidebar-menu">
+            <p class="menu-label">Categories</p>
+            
+            <div class="course-group">
+                <div class="course-header" onclick="toggleCourse(this)">
+                    <span><i class="fa-solid fa-user-secret"></i> Cybersecurity</span>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+                <ul class="subjects">
+                    <li onclick="selectSubject(this)" data-cat="cyber" data-id="offensive">Offensive</li>
+                    <li onclick="selectSubject(this)" data-cat="cyber" data-id="defensive">Defensive</li>
+                </ul>
+            </div>
+
+            <div class="course-group open">
+                <div class="course-header active" onclick="toggleCourse(this)">
+                    <span><i class="fa-solid fa-network-wired"></i> Networking</span>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+                <ul class="subjects show">
+                    <li onclick="selectSubject(this)" data-cat="network" data-id="CCNA1">CCNA1</li>  
+                    <li onclick="selectSubject(this)" data-cat="network" data-id="CCNA2">CCNA2</li>
+                    <li onclick="selectSubject(this)" data-cat="network" data-id="CCNA3">CCNA3</li>
+                </ul>
+            </div>
+
+            <div class="course-group">
+                <div class="course-header" onclick="toggleCourse(this)">
+                    <span><i class="fa-solid fa-code"></i> Programming</span>
+                    <i class="fa-solid fa-chevron-right arrow"></i>
+                </div>
+                <ul class="subjects">
+                    <li onclick="selectSubject(this)" data-cat="programming" data-id="C_programming">C Programming</li>
+                    <li onclick="selectSubject(this)" data-cat="programming" data-id="Python">Python</li>
+                    <li onclick="selectSubject(this)" data-cat="programming" data-id="HTML">HTML</li>
+                    <li onclick="selectSubject(this)" data-cat="programming" data-id="CSS">CSS</li>
+                    <li onclick="selectSubject(this)" data-cat="programming" data-id="JavaScript">JavaScript</li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+
+    <main class="quiz-container">
+        
+        <div id="welcome-screen" class="empty-state">
+            <div class="welcome-content">
+                <i class="fa-solid fa-shield-halved"></i>
+                <h2>Ready to Begin?</h2>
+                <p>Select a subject from the sidebar to start your assessment.</p>
+            </div>
+        </div>
+
+        <div id="quiz-window" style="display: none;">
+            <header class="quiz-info">
+                <div class="info-text">
+                    <h2 id="quiz-title">Subject Title</h2>
+                    <p id="quiz-category">Category Path</p>
+                </div>
+                <div class="info-stats">
+                    <span class="badge" id="question-counter">Question 0 / 0</span>
+                </div>
+            </header>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-fill" style="width: 0%;"></div>
+            </div>
+
+            <div class="quiz-card" id="quiz-card-body">
+                <h3 class="question-text" id="main-question">Loading Question...</h3>
+
+                <div class="options-grid" id="options-container">
+                    </div>
+            </div>
+
+            <footer class="quiz-footer">
+                <button class="btn btn-skip" id="prev-btn" onclick="prevQuestion()" style="display: none;">⬅ Back Question</button>
+                <button class="btn btn-primary" onclick="nextQuestion()">Next Question ➜</button>
+            </footer>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Local script for UI toggles only
+    function toggleCourse(element) {
+        const group = element.parentElement;
+        group.classList.toggle("open");
+        const subjects = element.nextElementSibling;
+        subjects.classList.toggle("show");
+        const arrow = element.querySelector('.arrow');
+        arrow.classList.toggle('fa-chevron-right');
+        arrow.classList.toggle('fa-chevron-down');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+    // 1. Get the category from the URL (e.g., ?category=cyber)
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+
+    if (category) {
+        // 2. Find the sidebar item that matches this category
+        // We look for a list item that has the data-cat attribute matching our URL
+        const targetSubject = document.querySelector(`li[data-cat="${category}"]`);
+        
+        if (targetSubject) {
+            // 3. Find the parent group and open it
+            const group = targetSubject.closest('.course-group');
+            const header = group.querySelector('.course-header');
+            
+            // If it's not already open, trigger the toggle function
+            if (!group.classList.contains('open')) {
+                toggleCourse(header);
+            }
+
+            // 4. Optionally: Automatically select the first subject in that category
+            // This triggers your selectSubject function from quizApp.js
+            selectSubject(targetSubject);
+            }
+        }
+    });
+
+    // Clear Token session when user click LogOut Button
+    function handleLogout() {
+        // 1. Clear all authentication data
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        
+        // 2. Clear everything else just to be safe (optional but recommended)
+        localStorage.clear(); 
+        sessionStorage.clear();
+
+        // 3. Optional: Alert the user
+        alert('You have been logged out successfully.');
+
+        // 4. Redirect to the landing/login page
+        window.location.href = 'home.html';
+    }
+</script>
+</body>
+</html>

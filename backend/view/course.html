@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GuessME | Cyber Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/course-style.css">
+</head>
+<body class="cyber-theme">
+    <div class="app-layout">
+        <aside class="sidebar">
+            <div class="brand">
+                <h1>Guess<span>ME</span></h1>
+            </div>
+
+            <div class="user-status">
+                <div class="avatar"><i class="fa-solid fa-user-shield"></i></div>
+                <div class="user-info">
+                    <p class="welcome">Agent Active</p>
+                    <h4 id="username">Guest Agent</h4> </div>
+            </div>
+
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="home.html"><i class="fa-solid fa-house"></i> Home</a></li>
+                    <li class="active"><a href="course.html"><i class="fa-solid fa-book-open"></i> Courses</a></li>
+                    <li><a href="results.html"><i class="fa-solid fa-chart-line"></i> My Results</a></li>
+                    <li><a href="aboutUs.html"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p class="mission-tag">CADT Generation 11</p>
+                <button onclick="handleLogout()" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="content-header">
+                <div class="header-text">
+                    <h2>Select Your Specialization</h2>
+                    <p>Choose a path to begin your assessment and master new skills.</p>
+                </div>
+            </header>
+
+            <div class="course-grid">
+                <a href="quiz.html?category=cyber" class="course-card">
+                    <div class="card-image">
+                        <img src="./asset/cyber.jpg" alt="Cyber">
+                        <div class="card-badge">Security</div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Cyber Security</h3>
+                        <p>Master the art of defense. Explore vulnerabilities, encryption, and threat mitigation.</p>
+                        <div class="card-footer">
+                            <span><i class="fa-solid fa-layer-group"></i> Basic Level</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="quiz.html?category=network" class="course-card">
+                    <div class="card-image">
+                        <img src="./asset/networking.webp" alt="Network">
+                        <div class="card-badge">Infrastructure</div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Network Engineering</h3>
+                        <p>Understand the backbone of the internet. Routing, switching, and protocol analysis.</p>
+                        <div class="card-footer">
+                            <span><i class="fa-solid fa-layer-group"></i> CCNA Track</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="quiz.html?category=programming" class="course-card">
+                    <div class="card-image">
+                        <img src="./asset/programming.png" alt="Programming">
+                        <div class="card-badge">Development</div>
+                    </div>
+                    <div class="card-body">
+                        <h3>Programming</h3>
+                        <p>Build the future with code. Master JavaScript, Python, and C programming logic.</p>
+                        <div class="card-footer">
+                            <span><i class="fa-solid fa-layer-group"></i> Logic & Dev</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            
+            // 1. If no token, kick back to Home/Login
+            if (!token) {
+                window.location.href = 'home.html';
+                return;
+            }
+
+            // 2. Try to fetch user profile
+            try {
+                const res = await fetch('http://localhost:4000/api/auth/profile', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                
+                if(data.success) {
+                    document.getElementById('username').textContent = data.user.name;
+                } else {
+                    // Token might be invalid/expired
+                    localStorage.removeItem('token');
+                    window.location.href = 'home.html';
+                }
+            } catch(err) {
+                console.error("Auth failed:", err);
+                // Fallback to local storage name if fetch fails
+                const savedUser = JSON.parse(localStorage.getItem('user'));
+                if(savedUser) {
+                    document.getElementById('username').textContent = savedUser.name;
+                }
+            }
+        });
+
+        // 3. Complete Logout Function
+        function handleLogout() {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = 'home.html'; // Redirection to home
+        }
+    </script>
+</body>
+</html>

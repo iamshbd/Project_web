@@ -1,0 +1,459 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(175deg, black 0%, black 37.9%, #d1d5db 38%, #d1d5db 100%);
+    min-height: 100vh;
+}
+
+h1 {
+    font-family: arial;
+    margin: 0;
+}
+.nav-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 60px;
+    padding: 10px 44px;
+    padding-right: 27px;
+    margin-top: 27px;
+    margin-left: 190px;
+    margin-right: 190px;
+    border: 2px solid rgb(163, 230, 53);
+    border-radius: 12px;        /* smooth corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+.nav-links :hover {
+    color: rgb(163,230, 53);
+    transition: color 0.2s;
+}
+
+.nav-login button {
+    background-color: rgb(163, 230, 53);
+    cursor: pointer;
+    border-radius: 3px;
+    border: 2px solid;
+    padding: 13px 28px;
+    color: black;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.nav-login button:hover{
+    background-color: rgb(163, 230, 53);
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.page-title {
+    color: white;
+    line-height: 1.1;
+}
+
+.content {
+    margin-left: 230px;
+    font-size: 20px;
+}
+.content h1{
+    font-size: 56px;
+    font-weight: 800;
+}
+
+.page-name {
+    color: rgb(239, 68, 68);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 4px 1fr;
+    align-items: flex-start;
+}
+
+.content-text {
+    color: black;
+    font-size: 38px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-left: 220px;
+    margin-right: 30px;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+.vl {
+    border-left: 3px solid black;
+    height: 89%;
+    justify-self: center;
+    margin-top: 24px;
+   
+}
+.content-right {
+    display: grid;
+    margin-top: 0px;
+    padding-right: 100px;
+    margin-left: 100px;
+    gap: 30px;
+    grid-template-rows: repeat(3, auto);
+}
+
+.card {
+    position: relative;
+    border: 4px solid #000;
+    padding: 35px 25px;
+    background: transparent;
+}
+
+.card p {
+    margin: 0;
+    font-size: 15px;
+}
+
+.badge {
+    position: absolute;
+    top: -14px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: fit-content;
+    background-color: #d1d5db;
+    border: 3px solid #a8cc58;
+    padding: 2px 20px;
+    font-weight: 770;
+    font-size: 17px;
+}
+
+.container-bottom {
+    display: grid;
+    grid-template-columns: 1fr 4px 1fr;
+    margin-top: 70px;
+    padding-bottom: 70px;
+    background-color: #000;
+}
+
+.name {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    padding-top: 30px;
+    margin: 0 175.6px;
+}
+
+.about-quiz {
+    color: rgb(156, 163, 175);
+    margin: 0 175.6px;
+}
+
+.line {
+    border-left: 1px solid rgb(156, 163, 175);
+    margin-top: 50px;
+    margin-left: 0;
+}
+
+.right-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 30px;
+    margin-right: 175.6px;
+    margin-left: 0;
+}
+
+.nav-bottom {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 13px;
+    margin-right: 175.6px;
+    padding-left: 30px;
+}   
+
+.nav-a a {
+    color: rgb(156, 163, 175);
+    text-decoration: none;
+    font-size: 17px;
+    display: flex;
+    padding: 5px;
+    margin-left: 37px;
+}
+
+.nav-a a:hover {
+    color: rgb(163, 230, 53);
+    transition: color 0.2s;
+}
+
+@media (max-width: 1024px) {
+
+    body {
+        background: linear-gradient(175deg, black 0%, black 30.9%, #d1d5db 31%, #d1d5db 100%);
+    }
+    .nav-bar {
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+    .content {
+        margin-left: 60px;
+        margin-right: 60px;
+    }
+    .content h1 {
+        font-size: 42px;
+    }
+    .content-text {
+        margin-left: 60px;
+        font-size: 30px;
+    }
+    .content-right {
+        margin-left: 40px;
+        padding-right: 40px;
+    }
+    .name,
+    .about-quiz {
+        margin: 0 60px;
+    }
+    .right-content {
+        margin-right: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    body {
+        background: linear-gradient(175deg, black 0%, black 27.9%, #d1d5db 28%, #d1d5db 100%);
+    }
+    .nav-bar {
+        flex-direction: column;
+        gap: 10px;
+        margin: 20px;
+    }
+    .nav-links {
+        justify-content: center;
+    }
+    .content {
+        margin: 40px 20px;
+        text-align: center;
+    }
+    .content h1 {
+        font-size: 32px;
+    }
+    .container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0 20px;
+    }
+    .vl {
+        display: none;
+    }
+    .content-text {
+        margin: 0;
+        font-size: 26px;
+        text-align: center;
+    }
+    .content-right {
+        margin: 0;
+        padding: 0;
+    }
+    .container-bottom {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .line {
+        display: none;
+    }
+    .name,
+    .about-quiz {
+        margin: 20px;
+    }
+    .right-content {
+        align-items: center;
+        margin: 0;
+    }
+    .nav-bottom {
+        margin-left: 140px;
+    }
+    .nav-a a {
+        justify-content: center;
+        margin: 0;
+    }
+}
+
+/* Modal overlay */
+.login-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* darker overlay for focus */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Fade-in animation for modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Login form wrapper */
+.login-wrapper {
+    position: relative;
+    width: 450px; /* bigger width */
+    max-width: 90%;
+    padding: 50px 40px; /* more padding */
+    background: #1f2937; /* dark modal background */
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal title */
+.login-wrapper .title {
+    font-size: 28px; /* bigger text */
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: rgb(163, 230, 53); /* green highlight */
+    text-align: center;
+}
+
+/* Input rows for both login & register */
+.login-wrapper .row {
+    display: flex;
+    align-items: center;
+    background: #374151;
+    margin-bottom: 25px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 1px solid #4b5563;
+    transition: all 0.3s;
+}
+
+.login-wrapper .row i {
+    margin-right: 15px;
+    color: #9ca3af;
+    font-size: 20px;
+}
+
+.login-wrapper .row input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 18px;
+    width: 100%;
+}
+
+.login-wrapper .row input::placeholder {
+    color: #9ca3af;
+}
+
+/* Hover effect on inputs */
+.login-wrapper .row:hover {
+    border-color: rgb(163, 230, 53);
+}
+
+/* Buttons for login/register */
+.login-wrapper .row.button input {
+    width: 100%;
+    background: rgb(163, 230, 53);
+    color: #000;
+    font-weight: 700;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.login-wrapper .row.button input:hover {
+    background: #a1e34b;
+    transform: scale(1.03);
+}
+
+
+/* Close button */
+.login-wrapper .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #9ca3af;
+}
+
+
+.login-wrapper .close-btn:hover {
+    color: rgb(163, 230, 53);
+}
+
+/* Success message */
+.login-wrapper .success-msg {
+    display: none;
+    text-align: center;
+    color: #10b981;
+    font-weight: 600;
+    margin-top: 15px;
+    font-size: 18px;
+}
+/* Error message (optional) */
+.login-wrapper .error-msg {
+    display: none;
+    text-align: center;
+    color: #ef4444; /* red */
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* Register/Login link text */
+.login-wrapper p a {
+    color: rgb(163, 230, 53);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.login-wrapper p a:hover {
+    text-decoration: underline;
+    color: #a1e34b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .login-wrapper {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .login-wrapper .title {
+        font-size: 22px;
+    }
+
+    .login-wrapper .row input {
+        font-size: 16px;
+    }
+
+    .login-wrapper .row.button input {
+        font-size: 16px;
+        padding: 12px;
+    }
+}
