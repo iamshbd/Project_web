@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/", "destination": "/backend/view/home.html" },
+    { "source": "/api/(.*)", "destination": "/backend/server.js" },
+    { "source": "/css/(.*)", "destination": "/backend/view/css/$1" },
+    { "source": "/js/(.*)", "destination": "/backend/view/js/$1" },
+    { "source": "/asset/(.*)", "destination": "/backend/view/asset/$1" },
+    { "source": "/(.*).html", "destination": "/backend/view/$1.html" }
+  ]
+}
