@@ -146,7 +146,7 @@ async function submitFinalResults() {
     };
 
     try {
-        const response = await fetch('https://your-backend.onrender.com/api/results', {
+        const response = await fetch('/api/results', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

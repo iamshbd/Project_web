@@ -1,5 +1,5 @@
 // main.js
-const API_BASE = 'https://your-backend.onrender.com/api/auth';
+const API_BASE = '/api/auth';
 
 // Modal elements
 const loginModal = document.getElementById('loginModal');

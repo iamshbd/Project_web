@@ -67,7 +67,7 @@ async function fetchResults() {
 
     try {
         // 2. Fetch using PLURAL /api/results
-        const response = await fetch('https://your-backend-name.onrender.com/api/results', {
+        const response = await fetch('/api/results', {
             method: 'GET',
             headers: { 
                 'Authorization': `Bearer ${token}` // Matches your auth.js middleware
