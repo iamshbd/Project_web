@@ -129,7 +129,7 @@ async function submitFinalResults() {
         return;
     }
 
-    // 🔥 Calculate final score from userAnswers array
+    // Calculate final score from userAnswers array
     let finalCorrectCount = 0;
     userAnswers.forEach((answer, index) => {
         if (answer === currentQuestions[index].correctAnswer) {
@@ -146,7 +146,7 @@ async function submitFinalResults() {
     };
 
     try {
-        const response = await fetch('http://localhost:4000/api/results', {
+        const response = await fetch('https://your-backend.onrender.com/api/results', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
